@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MauiWeather.ViewModels"
+             xmlns:converters="clr-namespace:MauiWeather.Converters"
+             x:Class="MauiWeather.Views.Forecast"
+             Title="Weather Forecast">
+    <ContentPage.BindingContext>
+        <viewmodels:ForecastViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:RoundValueConverter x:Key="RoundValueConverter" />
+            <converters:ShortDateConverter x:Key="ShortDateConverter" />
+            <converters:WeatherCodeToImageConverter x:Key="WeatherCodeToImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout>
+        <Label FontSize="Title" Margin="20" HorizontalOptions="Center" Text="{Binding Place.SubLocality}"/>
+        <Label Margin="10" Text="{Binding InfoText}" HorizontalOptions="Center" IsVisible="{Binding ShowInfoText}"/>
+            <Frame BackgroundColor="{StaticResource myBgCol}" IsVisible="{Binding ShowForecastData}">
+                <CollectionView ItemsSource="{Binding ForecastData}" HeightRequest="300">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="transparent" Margin="0" BorderColor="Transparent" Padding="0">
+                                <FlexLayout Direction="Row" JustifyContent="SpaceBetween" HorizontalOptions="Fill" Margin="0, 10, 0, 10" VerticalOptions="End">
+                                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center" WidthRequest="160">
+                                        <Label Text="{Binding Time, Converter={StaticResource ShortDateConverter}}" />
+                                        <Label Text="{Binding Time.DayOfWeek}" />
+                                    </HorizontalStackLayout>
+                                    <Image Source="{Binding Values.WeatherCode, Converter={StaticResource WeatherCodeToImageConverter}}" WidthRequest="30" VerticalOptions="Center"/>
+                                    <StackLayout HorizontalOptions="End" FlexLayout.Grow="5" VerticalOptions="Center">
+                                        <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="5">
+                                            <Label Text="{Binding Values.Temperature, Converter={StaticResource RoundValueConverter}, StringFormat='{0} °'}"/>
+                                            <Label Text="/" />
+                                            <Label Text="{Binding Values.TemperatureNight, Converter={StaticResource RoundValueConverter}, StringFormat='{0} °'}"/>
+                                        </HorizontalStackLayout>
+                                    </StackLayout>
+                                </FlexLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+            <ImageButton CornerRadius="10" Padding="10" BackgroundColor="White" Source="reloadicon.png" MaximumWidthRequest="70" MaximumHeightRequest="70" Command="{Binding getData}"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

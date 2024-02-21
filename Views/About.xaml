@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MauiWeather.ViewModels"
+             x:Class="MauiWeather.Views.About"
+             Title="About">
+    <ContentPage.BindingContext>
+        <viewmodels:AboutViewModel/>
+    </ContentPage.BindingContext>
+    <ScrollView HorizontalOptions="FillAndExpand">
+        
+
+    <FlexLayout Padding="20" HorizontalOptions="Center" VerticalOptions="StartAndExpand" JustifyContent="SpaceBetween" Direction="Column" AlignItems="Center">
+        <VerticalStackLayout HorizontalOptions="Center" Spacing="20" Margin="10">
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Latitude: " />
+                        <Span Text="{Binding Latitude}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Longitude: " />
+                        <Span Text="{Binding Longitude}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Altitude: " />
+                        <Span Text="{Binding Altitude}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Country: " />
+                        <Span Text="{Binding Place.CountryName}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Locality: " />
+                        <Span Text="{Binding Place.SubLocality}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Postal code: " />
+                        <Span Text="{Binding Place.PostalCode}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label HorizontalOptions="Center" Text="Author: " />
+            <Button VerticalOptions="Center" Text="Tomas Kelbasa" Command="{Binding OpenURL}" CommandParameter="https://github.com/TomasKelbasa"/>
+        </VerticalStackLayout>
+
+
+        <ImageButton Source="powered_by_tomorrow_white.png" WidthRequest="250" Command="{Binding OpenURL}" CommandParameter="https://www.tomorrow.io/"/>
+
+    </FlexLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MauiWeather.ViewModels"
+             xmlns:converters="clr-namespace:MauiWeather.Converters"
+             x:Class="MauiWeather.Views.Realtime"
+             Title="Realtime Weather">
+    <ContentPage.BindingContext>
+        <viewmodels:RealtimeViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:RoundValueConverter x:Key="RoundValueConverter" />
+            <converters:ShortDateConverter x:Key="ShortDateConverter" />
+            <converters:WeatherCodeToImageConverter x:Key="WeatherCodeToImageConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ScrollView HorizontalOptions="FillAndExpand" BackgroundColor="Black">
+        
+
+    <VerticalStackLayout HorizontalOptions="Fill">
+            <Label FontSize="Title" Margin="20" HorizontalOptions="Center" Text="{Binding Place.SubLocality}"/>
+            <Label Margin="10" HorizontalOptions="Center" Text="{Binding InfoText}" IsVisible="{Binding ShowInfoText}"/>
+
+            <Frame IsVisible="{Binding ShowWeather}" BackgroundColor="{StaticResource myBgCol}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150" />
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="80" />
+                </Grid.RowDefinitions>
+                <VerticalStackLayout Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="{Binding WeatherData.Values.WeatherCode, Converter={StaticResource WeatherCodeToImageConverter}}" WidthRequest="100" />
+                    <Label FontSize="Large" Text="{Binding WeatherData.Values.Temperature, Converter={StaticResource RoundValueConverter}, StringFormat='{0} °C'}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="0" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Apparent temp." HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label FontSize="Medium" Text="{Binding WeatherData.Values.TemperatureApparent , Converter={StaticResource RoundValueConverter}, StringFormat='{0} °C'}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Humidity" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label FontSize="Medium" Text="{Binding WeatherData.Values.Humidity, StringFormat='{0} %'}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="0" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="UV Index" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label FontSize="Medium" Text="{Binding WeatherData.Values.UvIndex}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Wind speed" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label FontSize="Medium" Text="{Binding WeatherData.Values.WindSpeed, Converter={StaticResource RoundValueConverter}, StringFormat='{0} m/s'}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="0" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Visibility" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label FontSize="Medium" Text="{Binding WeatherData.Values.Visibility, Converter={StaticResource RoundValueConverter}, StringFormat='{0} km'}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Column="1" Grid.Row="3" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Rain Intensity" HorizontalOptions="Center" VerticalOptions="Center" />
+                    <Label FontSize="Medium" Text="{Binding WeatherData.Values.RainIntensity, Converter={StaticResource RoundValueConverter}, StringFormat='{0} mm/hr'}" HorizontalOptions="Center" VerticalOptions="Center"/>
+                </VerticalStackLayout>
+            </Grid>
+        </Frame>
+        <ImageButton CornerRadius="10" Padding="10" BackgroundColor="White" Source="reloadicon.png" MaximumWidthRequest="70" MaximumHeightRequest="70" Command="{Binding getData}"/>
+    </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

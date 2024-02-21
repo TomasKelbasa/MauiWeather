@@ -1,0 +1,698 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>MauiWeather</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>MauiWeather</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.mauiweather</ApplicationId>
+		<ApplicationIdGuid>e00a5e0a-6c8a-4860-b677-9a97a528c73b</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\weathericon.png" ForegroundFile="Resources\AppIcon\weathericonfg.png" ForegroundScale="0.65" />
+
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\powered_by_tomorrow_white.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiImage>
+		<MauiImage Update="Resources\Images\reloadicon.png">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</MauiImage>
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\AppIcon\weathericon.png" />
+	  <None Remove="Resources\AppIcon\weathericonfg.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon10000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon10001n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon10010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon11000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon11001n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon11010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon11011n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon11020n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon11021n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon11030n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon11031n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon20000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21011n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21020n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21021n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21030n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21031n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21060n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21061n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21070n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21071n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21080n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon21081n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon40000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon40010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42020n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42021n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42030n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42031n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42040n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42041n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42050n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42051n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42080n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42081n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42090n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42091n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42100n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42101n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42110n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42111n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42120n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42121n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42130n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42131n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42140n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42141n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42150n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon42151n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon50000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon50010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51020n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51021n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51030n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51031n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51040n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51041n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51050n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51051n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51060n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51061n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51070n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51071n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51080n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51100n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51120n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51140n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51150n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51151n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51160n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51161n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51170n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51171n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51190n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51191n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51200n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51201n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51210n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51211n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon51220n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon60000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon60010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon60020n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon60021n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon60030n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon60031n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon60040n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon60041n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62020n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62021n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62030n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62031n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62040n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62050n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62051n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62060n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62070n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62071n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62080n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62081n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62090n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62091n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62120n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62130n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62131n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62140n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62141n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62150n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62151n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62200n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon62220n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon70000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71020n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71030n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71050n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71060n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71070n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71071n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71080n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71081n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71090n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71091n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71100n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71101n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71110n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71111n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71120n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71121n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71130n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71131n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71140n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71141n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71150n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71160n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71161n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon71170n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon80000n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon80010n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon80011n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon80020n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon80021n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon80030n.png" />
+	  <None Remove="Resources\Images\weather-icons-png\icon80031n.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon10000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon10001n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon10010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon11000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon11001n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon11010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon11011n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon11020n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon11021n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon11030n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon11031n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon20000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21011n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21020n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21021n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21030n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21031n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21060n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21061n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21070n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21071n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21080n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon21081n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon40000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon40010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42020n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42021n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42030n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42031n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42040n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42041n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42050n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42051n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42080n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42081n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42090n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42091n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42100n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42101n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42110n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42111n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42120n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42121n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42130n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42131n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42140n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42141n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42150n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon42151n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon50000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon50010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51020n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51021n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51030n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51031n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51040n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51041n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51050n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51051n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51060n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51061n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51070n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51071n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51080n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51100n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51120n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51140n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51150n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51151n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51160n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51161n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51170n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51171n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51190n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51191n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51200n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51201n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51210n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51211n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon51220n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon60000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon60010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon60020n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon60021n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon60030n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon60031n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon60040n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon60041n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62020n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62021n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62030n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62031n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62040n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62050n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62051n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62060n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62070n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62071n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62080n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62081n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62090n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62091n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62120n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62130n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62131n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62140n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62141n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62150n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62151n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62200n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon62220n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon70000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71020n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71030n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71050n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71060n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71070n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71071n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71080n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71081n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71090n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71091n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71100n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71101n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71110n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71111n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71120n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71121n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71130n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71131n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71140n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71141n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71150n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71160n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71161n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon71170n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon80000n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon80010n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon80011n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon80020n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon80021n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon80030n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	  <MauiImage Include="Resources\Images\weather-icons-png\icon80031n.png">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </MauiImage>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="RestSharp" Version="110.2.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Views\Forecast.xaml.cs">
+	    <DependentUpon>Forecast.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\About.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Forecast.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\Realtime.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>
